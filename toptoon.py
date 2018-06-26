@@ -7,7 +7,8 @@ import time
 from tqdm import tqdm
 import sys
 
-cid = sys.argv[1]
+sid = sys.argv[1]
+eid = sys.argv[2]
 #cid = '3316'
 
 headers = {
@@ -23,21 +24,24 @@ headers = {
     'Connection': 'keep-alive',
 }
 
-data = [
-  ('id', cid),
-]
+for j in range(int(sid), int(eid)+1):
+    cid =str(j)
+    data = [
+      ('id', cid),
+    ]
 
-response = requests.post('http://api.super-dreamers.com/mobile/chapter/load-more', headers=headers, data=data)
-result = json.loads(response.content)
-t = result['chapter']['chapterPicVos']
-urls = [i['picUrl'] for i in t]
-pprint(urls)
+    response = requests.post('http://api.super-dreamers.com/mobile/chapter/load-more', headers=headers, data=data)
+    result = json.loads(response.content)
+    t = result['chapter']['chapterPicVos']
+    urls = [i['picUrl'] for i in t]
+    pprint(urls)
 
-directory = cid
-if not os.path.exists(directory):
-    os.makedirs(directory)
+    directory = cid
+    if not os.path.exists(directory):
+        os.makedirs(directory)
 
-for idx, url in tqdm(enumerate(urls)):
-    urlretrieve(url, cid + '/' + str(idx) + ".jpg")
-    time.sleep(0.7)
+    for idx, url in tqdm(enumerate(urls)):
+        urlretrieve(url, cid + '/' + str(idx) + ".jpg")
+        print('[Done]', url, idx)
+        time.sleep(0.7)
 
