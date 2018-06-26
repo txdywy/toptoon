@@ -5,8 +5,10 @@ import urllib, os
 from urllib.request import urlretrieve
 import time
 from tqdm import tqdm
+import sys
 
-cid = '3316'
+cid = sys.argv[1]
+#cid = '3316'
 
 headers = {
     'Pragma': 'no-cache',
