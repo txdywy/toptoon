@@ -42,6 +42,6 @@ for j in range(int(sid), int(eid)+1):
 
     for idx, url in tqdm(enumerate(urls)):
         urlretrieve(url, cid + '/' + str(idx) + ".jpg")
-        print('[Done]', url, idx)
+        print('[Done]', url, idx, cid)
         time.sleep(0.7)
 
